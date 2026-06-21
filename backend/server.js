@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/database');
+const errorHandler = require('./middleware/errorHandler');
 
 // Route imports
 const authRoutes = require('./routes/auth');
@@ -49,6 +50,9 @@ app.use('*', (req, res) => {
   console.log(`404: ${req.method} ${req.originalUrl}`);
   res.status(404).json({ message: 'Route not found' });
 });
+
+// Error handler middleware
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 
